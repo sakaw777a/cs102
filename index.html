@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════ SIDEBAR ═══════════════════════════════ -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
     <span class="logo-icon">⌨️</span>
@@ -65,13 +64,10 @@
   </div>
 </aside>
 
-<!-- Hamburger -->
 <button class="hamburger" id="hamburger" onclick="toggleSidebar()">☰</button>
 
-<!-- ═══════════════════════════════ MAIN ═══════════════════════════════ -->
 <main class="main-content" id="main-content">
 
-  <!-- ──────────── DASHBOARD ──────────── -->
   <section id="sec-dashboard" class="section active">
     <div class="section-header">
       <h1 class="section-title">أهلاً، <span style="color:var(--green);">sakaw</span> 👋</h1>
@@ -89,62 +85,31 @@
         <div class="stat-num" id="stat-remaining">0</div>
         <div class="stat-label">متبقية</div>
       </div>
-      <div class="stat-card" style="--accent:#ffd93d">
+      <div class="stat-card" style="--accent:#58a6ff">
         <div class="stat-icon">📊</div>
-        <div class="stat-num" id="stat-total">0</div>
-        <div class="stat-label">إجمالي الأمثلة</div>
-      </div>
-      <div class="stat-card" style="--accent:#6c63ff">
-        <div class="stat-icon">🏆</div>
         <div class="stat-num" id="stat-pct">0%</div>
         <div class="stat-label">نسبة الإنجاز</div>
       </div>
     </div>
 
-    <div class="progress-section">
-      <div class="progress-label">
-        <span>شريط التقدم الكلي</span>
-        <span id="progress-pct-label">0%</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="main-progress-bar"></div>
-      </div>
-    </div>
-
     <div class="dash-actions">
-      <button class="btn btn-primary" onclick="resumeStudy()">
-        ⏯️ استكمال المذاكرة
-      </button>
-      <button class="btn btn-challenge" onclick="randomChallenge()">
-        🎲 تحدي عشوائي
-      </button>
-      <button class="btn btn-outline" onclick="navigate('flashcards')">
-        🃏 مراجعة Flashcards
-      </button>
-      <button class="btn btn-outline" onclick="navigate('quiz')">
-        📝 اختبار سريع
-      </button>
+      <button class="btn btn-primary btn-lg" onclick="resumeStudy()">🚀 استكمال المذاكرة</button>
+      <button class="btn btn-challenge btn-lg" onclick="openRandomChallenge()">🔀 تحدي عشوائي سريع</button>
     </div>
 
-    <div class="sections-overview">
-      <h2 class="overview-title">نظرة سريعة على الأقسام</h2>
-      <div class="overview-grid" id="overview-grid"></div>
+    <div class="dash-recent">
+      <div class="recent-title">💡 نصيحة المذاكرة اليومية</div>
+      <div class="recent-body" style="color:var(--text2); line-height:1.6;">
+        البرمجة ليست حفظاً للأكواد! اقرأ المسألة، وحاول فهم "المنطق واللوجيك بالبلدي" أولاً من خلال الضغط على زر التلميحات قبل فتح كود الحل. الممارسة المستمرة وكتابة الأكواد بيدك في المحرر هي سر التميز.
+      </div>
     </div>
   </section>
 
-  <!-- ──────────── STUDY SECTIONS (cards rendered by JS) ──────────── -->
-  <section id="sec-variables"   class="section"></section>
-  <section id="sec-operators"   class="section"></section>
-  <section id="sec-conditionals" class="section"></section>
-  <section id="sec-loops"       class="section"></section>
-  <section id="sec-functions"   class="section"></section>
-  <section id="sec-arrays"      class="section"></section>
-  <section id="sec-structs"     class="section"></section>
+  <div id="dynamic-sections"></div>
 
-  <!-- ──────────── FLASHCARDS ──────────── -->
   <section id="sec-flashcards" class="section">
     <div class="section-header">
-      <h1 class="section-title">Flashcards 🃏</h1>
+      <h1 class="section-title">كروت الاستذكار السريع (Flashcards) 🃏</h1>
       <p class="section-desc">اقلب الكارت لترى الإجابة – مراجعة ليلة الامتحان!</p>
     </div>
     <div class="fc-controls">
@@ -164,7 +129,6 @@
     <div class="fc-hint" id="fc-hint-area"></div>
   </section>
 
-  <!-- ──────────── QUIZ ──────────── -->
   <section id="sec-quiz" class="section">
     <div class="section-header">
       <h1 class="section-title">اختبار سريع 📝</h1>
@@ -175,11 +139,13 @@
 
 </main>
 
-<!-- ═══════════════════════ RANDOM CHALLENGE MODAL ═══════════════════════ -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div id="modal-content"></div>
+<div class="modal-overlay" id="challenge-modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">🎯 التحدي العشوائي المفاجئ</div>
+      <button class="modal-close" onclick="closeRandomChallenge()">&times;</button>
+    </div>
+    <div id="modal-card-placeholder"></div>
   </div>
 </div>
 
