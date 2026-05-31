@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>C++ Study Hub – مذاكرة ذكية</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Tajawal:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ SIDEBAR ═══════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <span class="logo-icon">⌨️</span>
+    <div>
+      <div class="logo-title">C++ Study Hub</div>
+      <div class="logo-sub">CS.102 – مراجعة ذكية</div>
+      <div class="logo-name">👤 sakaw</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">الأقسام</div>
+    <a class="nav-item active" data-section="dashboard" onclick="navigate('dashboard')">
+      <span class="nav-icon">🏠</span> لوحة التحكم
+    </a>
+    <a class="nav-item" data-section="variables" onclick="navigate('variables')">
+      <span class="nav-icon">📦</span> Variables & I/O
+    </a>
+    <a class="nav-item" data-section="operators" onclick="navigate('operators')">
+      <span class="nav-icon">🔢</span> Operators
+    </a>
+    <a class="nav-item" data-section="conditionals" onclick="navigate('conditionals')">
+      <span class="nav-icon">🔀</span> Conditionals & Switch
+    </a>
+    <a class="nav-item" data-section="loops" onclick="navigate('loops')">
+      <span class="nav-icon">🔁</span> Loops
+    </a>
+    <a class="nav-item" data-section="functions" onclick="navigate('functions')">
+      <span class="nav-icon">🧩</span> Functions
+    </a>
+    <a class="nav-item" data-section="arrays" onclick="navigate('arrays')">
+      <span class="nav-icon">🗂️</span> Arrays
+    </a>
+    <a class="nav-item" data-section="structs" onclick="navigate('structs')">
+      <span class="nav-icon">🏗️</span> Structs
+    </a>
+
+    <div class="nav-label" style="margin-top:1.5rem;">أدوات المذاكرة</div>
+    <a class="nav-item" data-section="flashcards" onclick="navigate('flashcards')">
+      <span class="nav-icon">🃏</span> Flashcards
+    </a>
+    <a class="nav-item" data-section="quiz" onclick="navigate('quiz')">
+      <span class="nav-icon">📝</span> اختبار سريع
+    </a>
+  </nav>
+
+  <div class="sidebar-progress-mini">
+    <div class="mini-label">إجمالي التقدم</div>
+    <div class="mini-bar-wrap">
+      <div class="mini-bar" id="mini-progress-bar"></div>
+    </div>
+    <div class="mini-pct" id="mini-pct-text">0%</div>
+  </div>
+</aside>
+
+<!-- Hamburger -->
+<button class="hamburger" id="hamburger" onclick="toggleSidebar()">☰</button>
+
+<!-- ═══════════════════════════════ MAIN ═══════════════════════════════ -->
+<main class="main-content" id="main-content">
+
+  <!-- ──────────── DASHBOARD ──────────── -->
+  <section id="sec-dashboard" class="section active">
+    <div class="section-header">
+      <h1 class="section-title">أهلاً، <span style="color:var(--green);">sakaw</span> 👋</h1>
+      <p class="section-desc">ابدأ مذاكرتك الذكية – تابع تقدمك وابقى منظم! 🚀</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card" style="--accent:#00ff88">
+        <div class="stat-icon">✅</div>
+        <div class="stat-num" id="stat-done">0</div>
+        <div class="stat-label">تمت مذاكرتها</div>
+      </div>
+      <div class="stat-card" style="--accent:#ff6b6b">
+        <div class="stat-icon">📌</div>
+        <div class="stat-num" id="stat-remaining">0</div>
+        <div class="stat-label">متبقية</div>
+      </div>
+      <div class="stat-card" style="--accent:#ffd93d">
+        <div class="stat-icon">📊</div>
+        <div class="stat-num" id="stat-total">0</div>
+        <div class="stat-label">إجمالي الأمثلة</div>
+      </div>
+      <div class="stat-card" style="--accent:#6c63ff">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-num" id="stat-pct">0%</div>
+        <div class="stat-label">نسبة الإنجاز</div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-label">
+        <span>شريط التقدم الكلي</span>
+        <span id="progress-pct-label">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="main-progress-bar"></div>
+      </div>
+    </div>
+
+    <div class="dash-actions">
+      <button class="btn btn-primary" onclick="resumeStudy()">
+        ⏯️ استكمال المذاكرة
+      </button>
+      <button class="btn btn-challenge" onclick="randomChallenge()">
+        🎲 تحدي عشوائي
+      </button>
+      <button class="btn btn-outline" onclick="navigate('flashcards')">
+        🃏 مراجعة Flashcards
+      </button>
+      <button class="btn btn-outline" onclick="navigate('quiz')">
+        📝 اختبار سريع
+      </button>
+    </div>
+
+    <div class="sections-overview">
+      <h2 class="overview-title">نظرة سريعة على الأقسام</h2>
+      <div class="overview-grid" id="overview-grid"></div>
+    </div>
+  </section>
+
+  <!-- ──────────── STUDY SECTIONS (cards rendered by JS) ──────────── -->
+  <section id="sec-variables"   class="section"></section>
+  <section id="sec-operators"   class="section"></section>
+  <section id="sec-conditionals" class="section"></section>
+  <section id="sec-loops"       class="section"></section>
+  <section id="sec-functions"   class="section"></section>
+  <section id="sec-arrays"      class="section"></section>
+  <section id="sec-structs"     class="section"></section>
+
+  <!-- ──────────── FLASHCARDS ──────────── -->
+  <section id="sec-flashcards" class="section">
+    <div class="section-header">
+      <h1 class="section-title">Flashcards 🃏</h1>
+      <p class="section-desc">اقلب الكارت لترى الإجابة – مراجعة ليلة الامتحان!</p>
+    </div>
+    <div class="fc-controls">
+      <button class="btn btn-outline" onclick="prevFlash()">◀ السابق</button>
+      <span class="fc-counter" id="fc-counter">1 / 0</span>
+      <button class="btn btn-outline" onclick="nextFlash()">التالي ▶</button>
+      <button class="btn btn-challenge" onclick="shuffleFlash()">🔀 ترتيب عشوائي</button>
+    </div>
+    <div class="fc-stage" id="fc-stage">
+      <div class="flip-card" id="flip-card" onclick="flipCard()">
+        <div class="flip-inner" id="flip-inner">
+          <div class="flip-front" id="flip-front"></div>
+          <div class="flip-back"  id="flip-back"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-hint" id="fc-hint-area"></div>
+  </section>
+
+  <!-- ──────────── QUIZ ──────────── -->
+  <section id="sec-quiz" class="section">
+    <div class="section-header">
+      <h1 class="section-title">اختبار سريع 📝</h1>
+      <p class="section-desc">3 أسئلة اختيارية – اختبر معلوماتك!</p>
+    </div>
+    <div id="quiz-container"></div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════ RANDOM CHALLENGE MODAL ═══════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
